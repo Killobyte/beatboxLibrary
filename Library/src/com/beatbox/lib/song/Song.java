@@ -3,7 +3,7 @@ package com.beatbox.lib.song;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Song {
+public abstract class Song {
 	protected String title;
 	protected String artist;
 	protected String path;
@@ -46,6 +46,12 @@ public class Song {
 	public String toString() {
 		return artist + " - " + title;
 	}
+
+	public abstract void play();
+
+	public abstract void stop();
+
+	public abstract void pauseOrResume();
 
 	public JSONObject toJSONObject() {
 		JSONObject song = new JSONObject();
