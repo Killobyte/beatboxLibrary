@@ -43,6 +43,10 @@ public class Song {
 		return path;
 	}
 
+	public String toString() {
+		return artist + " - " + title;
+	}
+
 	public JSONObject toJSONObject() {
 		JSONObject song = new JSONObject();
 		try {

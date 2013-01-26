@@ -2,7 +2,6 @@ package com.beatbox.lib;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -17,19 +16,18 @@ import com.beatbox.lib.song.Song;
 import com.beatbox.lib.song.SongFactory;
 
 public class Library {
-	private TreeMap<String, List<Song>> library;
+	private TreeMap<String, TreeMap<String, Song>> library;
 
 	public Library() {
-		library = new TreeMap<String, List<Song>>();
+		library = new TreeMap<String, TreeMap<String, Song>>();
 	}
 
 	public void addSong(Song song) {
 		String key = song.getArtist();
-		if (library.containsKey(key)) {
-			library.get(key).add(song);
-		} else {
-			library.put(key, new ArrayList<Song>(Arrays.asList(song)));
+		if (!library.containsKey(key)) {
+			library.put(key, new TreeMap<String, Song>());
 		}
+		library.get(key).put(song.getTitle(), song);
 	}
 
 	public void buildFromFilepath(File root) {
@@ -52,7 +50,13 @@ public class Library {
 	}
 
 	public List<Song> getSongs(String artist) {
-		return library.get(artist);
+		TreeMap<String, Song> songTree = library.get(artist);
+		SortedSet<String> songs = new TreeSet<String>(songTree.keySet());
+		ArrayList<Song> ret = new ArrayList<Song>();
+		for (String key : songs) {
+			ret.add(songTree.get(key));
+		}
+		return ret;
 	}
 
 	public JSONObject toJSONObject() {
