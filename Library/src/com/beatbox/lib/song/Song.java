@@ -40,7 +40,7 @@ public class Song {
 	}
 
 	public String getPath() {
-		return path;
+		return path.replace("\\", "/");
 	}
 
 	public String toString() {
