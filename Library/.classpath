@@ -4,7 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/json-org.jar"/>
 	<classpathentry kind="lib" path="lib/jaudiotagger-2.0.4-20111207.115108-15.jar"/>
-	<classpathentry kind="lib" path="lib/jmf.jar"/>
 	<classpathentry kind="lib" path="lib/mp3plugin.jar"/>
+	<classpathentry kind="lib" path="lib/jfxrt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

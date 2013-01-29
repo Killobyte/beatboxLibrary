@@ -2,16 +2,9 @@ package com.beatbox.lib.song;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 
-import javax.media.Format;
-import javax.media.Manager;
-import javax.media.MediaLocator;
-import javax.media.NoPlayerException;
-import javax.media.Player;
-import javax.media.PlugInManager;
-import javax.media.Time;
-import javax.media.format.AudioFormat;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -24,9 +17,8 @@ import org.jaudiotagger.tag.TagException;
 
 public class MP3Song extends Song {
 
-	Player player;
+	MediaPlayer player;
 	boolean paused;
-	Time resumeTime;
 
 	public MP3Song(File file) {
 		path = file.getAbsolutePath();
@@ -54,43 +46,30 @@ public class MP3Song extends Song {
 
 	@Override
 	public void play() {
-		File songFile = new File(path);
-		MediaLocator ml;
-		Format input1 = new AudioFormat(AudioFormat.MPEGLAYER3);
-		Format input2 = new AudioFormat(AudioFormat.MPEG);
-		Format output = new AudioFormat(AudioFormat.LINEAR);
-		PlugInManager.addPlugIn("com.sun.media.codec.audio.mp3.JavaDecoder",
-				new Format[] { input1, input2 }, new Format[] { output },
-				PlugInManager.CODEC);
-		try {
-			ml = new MediaLocator(songFile.toURI().toURL());
-			player = Manager.createPlayer(ml);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoPlayerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Media media = null;
+		media = new Media(new File(path).toURI().toString());
+		if (media != null) {
+			player = new MediaPlayer(media);
+			player.play();
+			paused = false;
 		}
-		player.start();
-		paused = false;
+
 	}
 
 	public void stop() {
-		player.stop();
+		if (player != null) {
+			player.stop();
+		}
 	}
 
 	public void pauseOrResume() {
-		if (paused) {
-			player.setMediaTime(resumeTime);
-			player.start();
-		} else {
-			resumeTime = player.getMediaTime();
-			player.stop();
+		if (player != null) {
+			if (paused) {
+				player.play();
+			} else {
+				player.pause();
+			}
+			paused = !paused;
 		}
-		paused = !paused;
 	}
 }

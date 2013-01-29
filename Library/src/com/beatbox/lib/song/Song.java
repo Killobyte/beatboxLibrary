@@ -40,6 +40,10 @@ public abstract class Song {
 	}
 
 	public String getPath() {
+		return path;
+	}
+
+	public String getURIReadyPath() {
 		return path.replace("\\", "/");
 	}
 
