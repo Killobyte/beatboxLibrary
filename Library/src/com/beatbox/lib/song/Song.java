@@ -51,7 +51,7 @@ public abstract class Song {
 		return artist + " - " + title;
 	}
 
-	public abstract void play();
+	public abstract void play(Runnable onCompleteCallback);
 
 	public abstract void stop();
 

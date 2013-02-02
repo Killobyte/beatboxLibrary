@@ -47,15 +47,15 @@ public class MP3Song extends Song {
 	}
 
 	@Override
-	public void play() {
+	public void play(Runnable onCompleteCallback) {
 		Media media = null;
 		media = new Media(new File(path).toURI().toString());
 		if (media != null) {
 			player = new MediaPlayer(media);
 			player.play();
+			player.setOnEndOfMedia(onCompleteCallback);
 			paused = false;
 		}
-
 	}
 
 	public void stop() {
