@@ -39,8 +39,10 @@ public class MP3Song extends Song {
 
 		if (af != null) {
 			Tag tag = af.getTag();
-			artist = tag.getFirst(FieldKey.ARTIST);
-			title = tag.getFirst(FieldKey.TITLE);
+			if (tag != null) {
+				artist = tag.getFirst(FieldKey.ARTIST);
+				title = tag.getFirst(FieldKey.TITLE);
+			}
 		}
 	}
 
