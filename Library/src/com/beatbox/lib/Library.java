@@ -50,7 +50,12 @@ public class Library {
 	}
 
 	public Song getSong(String artist, String title) {
-		return library.get(artist).get(title);
+		TreeMap<String, Song> artistMap = library.get(artist);
+		if (artistMap != null) {
+			return artistMap.get(title);
+		} else {
+			return null;
+		}
 	}
 
 	public List<Song> getSongs(String artist) {
