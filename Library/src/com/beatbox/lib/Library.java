@@ -49,6 +49,10 @@ public class Library {
 		return artists;
 	}
 
+	public Song getSong(String artist, String title) {
+		return library.get(artist).get(title);
+	}
+
 	public List<Song> getSongs(String artist) {
 		TreeMap<String, Song> songTree = library.get(artist);
 		SortedSet<String> songs = new TreeSet<String>(songTree.keySet());
